@@ -1,7 +1,35 @@
-(->
-  serverURL = "http://192.168.1.4:3000" # IMPORTANT: This URL needs to be accessible from your phone for testing.
-  $scroller = $(".scroller")
-  
+#(->
+serverURL = "http://test.krashdrive.com" # IMPORTANT: This URL needs to be accessible from your phone for testing.
+#$scroller = $(".scroller")
+
+#temp hard code
+identity = "joe+testkd01@megashares.com"
+password = "123456789"
+
+data =
+	identity: identity
+	password: password
+	remember: 1
+ 
+# login
+#kdlogin = ->
+#$scroller.empty()
+
+$.ajax
+	type: 'POST'
+	url: "#{serverURL}/auth/login"
+	data: data
+	dataType: 'json'
+
+.done (result) ->
+	if result.error
+		#$('#identity, #password').addClass 'has-error'
+		alert.error 'Unable to Login', 'Incorrect username or password.'
+
+	else
+		alert.success 'Woohoo!',
+			'You have successfully authorized KrashDrive Sync.'
+###
   # Get List of images from server
   getFeed = ->
     $scroller.empty()
@@ -64,4 +92,5 @@
   $(".camera-btn").on "click", takePicture
   getFeed()
   return
-)()
+###
+#)()
